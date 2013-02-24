@@ -1,0 +1,243 @@
+public class Main {
+	public static void main(String main[]) {
+
+		WindowMain wM = new WindowMain();
+		wM.setVisible(true);
+
+	}
+}
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class WindowMain extends JFrame implements ActionListener {
+	private static final long serialVersionUID = 1L;
+
+	JTextField prob;
+	JTextField numTrials;
+	String theoInp;
+	double theoDbl;
+	double theoProbDbl;
+	JLabel theoProb;
+	JLabel simProb;
+	int oneOutOf;
+	int howManyTrials;
+	Random r;
+	int rnd;
+	double counter = 0;
+	JCheckBox viewLogcb;
+	Log lConst;
+	String soonToBeLog = "";
+
+	public WindowMain() {
+		super("Law of Large Numbers Simulation");
+		setSize(500, 245);
+		setResizable(false);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+		JPanel p1 = new JPanel(new GridBagLayout());
+		add(p1, BorderLayout.NORTH);
+
+		GridBagConstraints gbc1 = new GridBagConstraints();
+
+		JLabel title = new JLabel("Law of Large Numbers Simulation");
+		title.setFont(new Font(null, Font.BOLD, 24));
+		gbc1.gridx = 0;
+		gbc1.gridy = 0;
+		gbc1.anchor = GridBagConstraints.CENTER;
+		gbc1.gridwidth = 5;
+
+		p1.add(title, gbc1);
+
+		JLabel designer = new JLabel("Designed By Steven M--------");
+		designer.setFont(new Font(null, Font.PLAIN, 18));
+		gbc1.gridx = 0;
+		gbc1.gridy = 1;
+		gbc1.gridwidth = 5;
+
+		p1.add(designer, gbc1);
+
+		JLabel probabilityO = new JLabel("Probability of Occurrence: 1 out of ");
+		probabilityO.setFont(new Font(null, Font.PLAIN, 18));
+		gbc1.gridx = 0;
+		gbc1.gridy = 2;
+		gbc1.anchor = GridBagConstraints.LINE_END;
+		gbc1.fill = GridBagConstraints.NONE;
+		gbc1.gridwidth = 2;
+		gbc1.insets = new Insets(5, 0, 0, 5);
+
+		p1.add(probabilityO, gbc1);
+
+		prob = new JTextField();
+		gbc1.gridx = 2;
+		gbc1.gridy = 2;
+		gbc1.fill = GridBagConstraints.HORIZONTAL;
+		gbc1.gridwidth = 3;
+
+		p1.add(prob, gbc1);
+
+		JLabel numTrialsLb = new JLabel("How many trials?");
+		numTrialsLb.setFont(new Font(null, Font.PLAIN, 18));
+		gbc1.gridx = 0;
+		gbc1.gridy = 3;
+		gbc1.gridwidth = 2;
+
+		p1.add(numTrialsLb, gbc1);
+
+		numTrials = new JTextField();
+		gbc1.gridx = 2;
+		gbc1.gridy = 3;
+		gbc1.gridwidth = 3;
+
+		p1.add(numTrials, gbc1);
+
+		theoProb = new JLabel("Theoretical Probability: ");
+		gbc1.gridx = 0;
+		gbc1.gridy = 4;
+		gbc1.gridwidth = 5;
+		theoProb.setFont(new Font(null, Font.PLAIN, 18));
+
+		p1.add(theoProb, gbc1);
+
+		simProb = new JLabel("Simulated Probability: ");
+		gbc1.gridx = 0;
+		gbc1.gridy = 5;
+		gbc1.gridwidth = 5;
+		simProb.setFont(new Font(null, Font.PLAIN, 18));
+
+		p1.add(simProb, gbc1);
+
+		viewLogcb = new JCheckBox("View Log");
+		viewLogcb.setSelected(true);
+		gbc1.gridx = 0;
+		gbc1.gridy = 6;
+		gbc1.gridwidth = 2;
+		gbc1.fill = GridBagConstraints.NONE;
+		gbc1.anchor = GridBagConstraints.LINE_START;
+		gbc1.insets = new Insets(10, 0, 0, 5);
+
+		p1.add(viewLogcb, gbc1);
+
+		JButton viewLawb = new JButton("View Law");
+		gbc1.gridx = 3;
+		gbc1.gridy = 6;
+		gbc1.anchor = GridBagConstraints.LINE_END;
+
+		p1.add(viewLawb, gbc1);
+
+		JButton viewCodeb = new JButton("View Code");
+		gbc1.gridx = 2;
+		gbc1.gridy = 6;
+		gbc1.anchor = GridBagConstraints.LINE_START;
+
+		p1.add(viewCodeb, gbc1);
+
+		JButton runSimu = new JButton("Run Simulation");
+		gbc1.gridx = 1;
+		gbc1.gridy = 6;
+		gbc1.anchor = GridBagConstraints.LINE_END;
+
+		p1.add(runSimu, gbc1);
+
+		runSimu.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				theoInp = prob.getText();
+				theoDbl = Double.parseDouble(theoInp);
+				theoProbDbl = 1.0 / theoDbl;
+				theoProb.setText("Theoretical Probability: " + theoProbDbl);
+
+				int oneOutOf = Integer.parseInt(prob.getText());
+				int howManyTrials = Integer.parseInt(numTrials.getText());
+				double dblHowManyTrials = Double.parseDouble(numTrials
+						.getText());
+
+				for (int i = 0; i < howManyTrials; i++) {
+					r = new Random();
+					rnd = r.nextInt(oneOutOf);
+					if (rnd == 0) {
+						counter += 1;
+						if (viewLogcb.isSelected()) {
+							soonToBeLog += "Y ";
+
+						}
+					} else {
+						if (viewLogcb.isSelected()) {
+							soonToBeLog += "N ";
+
+						}
+					}
+
+				}
+
+				if (viewLogcb.isSelected()) {
+					lConst = new Log(soonToBeLog);
+				}
+
+				soonToBeLog = "";
+
+				Double simulatedProbPrint = counter / dblHowManyTrials;
+				simProb.setText("Simulated Probability: " + simulatedProbPrint);
+
+				counter = 0;
+
+			}
+		});
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+	}
+}
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+
+public class Log extends JFrame {
+	private static final long serialVersionUID = 1L;
+
+	String logx = "LOG: ";
+	JTextPane txt = new JTextPane();
+	JPanel p = new JPanel();
+	JScrollPane scrollPane;
+	String addTo;
+
+	public Log() {
+
+	}
+
+	public Log(String a) {
+		super("LOG");
+		setVisible(true);
+		setSize(720, 600);
+		setResizable(false);
+		setDefaultCloseOperation(HIDE_ON_CLOSE);
+		p.add(txt);
+		add(p);
+		addTo = a;
+		txt.setText(logx + addTo);
+		txt.setPreferredSize(new Dimension(720, 600));
+		scrollPane = new JScrollPane(txt);
+		scrollPane.setPreferredSize( new Dimension (720, 570));
+		p.add(scrollPane);
+	}
+}
