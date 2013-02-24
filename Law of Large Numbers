@@ -40,6 +40,8 @@ public class WindowMain extends JFrame implements ActionListener {
 	JCheckBox viewLogcb;
 	Log lConst;
 	String soonToBeLog = "";
+	JButton viewCodeb;
+	JButton viewLawb;
 
 	public WindowMain() {
 		super("Law of Large Numbers Simulation");
@@ -61,7 +63,7 @@ public class WindowMain extends JFrame implements ActionListener {
 
 		p1.add(title, gbc1);
 
-		JLabel designer = new JLabel("Designed By Steven M--------");
+		JLabel designer = new JLabel("Designed By Steven Marturano");
 		designer.setFont(new Font(null, Font.PLAIN, 18));
 		gbc1.gridx = 0;
 		gbc1.gridy = 1;
@@ -130,14 +132,14 @@ public class WindowMain extends JFrame implements ActionListener {
 
 		p1.add(viewLogcb, gbc1);
 
-		JButton viewLawb = new JButton("View Law");
+		viewLawb = new JButton("View Law");
 		gbc1.gridx = 3;
 		gbc1.gridy = 6;
 		gbc1.anchor = GridBagConstraints.LINE_END;
 
 		p1.add(viewLawb, gbc1);
 
-		JButton viewCodeb = new JButton("View Code");
+		viewCodeb = new JButton("View Code");
 		gbc1.gridx = 2;
 		gbc1.gridy = 6;
 		gbc1.anchor = GridBagConstraints.LINE_START;
@@ -198,6 +200,36 @@ public class WindowMain extends JFrame implements ActionListener {
 			}
 		});
 
+		viewCodeb.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				try {
+					String url = "https://github.com/valgriz/Java/blob/master/Law%20of%20Large%20Numbers";
+					java.awt.Desktop.getDesktop().browse(
+							java.net.URI.create(url));
+				} catch (java.io.IOException e) {
+					System.out.println(e.getMessage());
+				}
+
+			}
+		});
+
+		viewLawb.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String url = "http://en.wikipedia.org/wiki/Law_of_large_numbers";
+					java.awt.Desktop.getDesktop().browse(
+							java.net.URI.create(url));
+				} catch (java.io.IOException e1) {
+					System.out.println(e1.getMessage());
+				}
+			}
+		});
+
 	}
 
 	@Override
@@ -205,8 +237,8 @@ public class WindowMain extends JFrame implements ActionListener {
 
 	}
 }
-import java.awt.Dimension;
 
+import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
