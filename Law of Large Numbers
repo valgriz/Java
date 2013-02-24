@@ -63,7 +63,7 @@ public class WindowMain extends JFrame implements ActionListener {
 
 		p1.add(title, gbc1);
 
-		JLabel designer = new JLabel("Designed By Steven Marturano");
+		JLabel designer = new JLabel("Designed By Steven M--------");
 		designer.setFont(new Font(null, Font.PLAIN, 18));
 		gbc1.gridx = 0;
 		gbc1.gridy = 1;
